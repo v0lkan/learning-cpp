@@ -1,6 +1,28 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
+
+void voidPointers() {
+    struct Stuff {
+        int age;
+        float length;
+    };
+
+    Stuff stuff;
+
+    void *ptr;
+
+    ptr = &stuff;
+
+    // After a static cast, you can properly dereference it:
+    Stuff *stuffPtr = static_cast<Stuff*>(ptr);
+
+    cout << (*stuffPtr).age;
+
+    // Generally it’s a good idea to avoid using void pointers
+    // unless absolutely necessary.
+}
 
 struct Bundle {
     int videoId;
@@ -38,6 +60,33 @@ void referencesAreKindaSortaLikeConstPointers() {
 
     cout << ref;
     cout << *ptr;
+}
+
+void arrayLoop(int array[]) {
+    // for (const auto &number : array ) // compile-time error because array size is unknown.
+}
+
+void forEachLoop() {
+    int fibonacci[] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144};
+
+    for (int number : fibonacci) {
+        cout << number << " ";
+    }
+
+    for (auto number : fibonacci) {
+        cout << number << " ";
+    }
+
+    // Uses references instead of copying by value; more efficient.
+    for (const auto &number : fibonacci) {
+        cout << number << " ";
+    }
+
+    vector<int> victor = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144};
+
+    for (const auto &number : victor) {
+        cout << number << " ";
+    }
 }
 
 int main() {
